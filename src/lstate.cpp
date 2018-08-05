@@ -17,9 +17,9 @@
 #include "ltm.hpp"
 
 
-#define state_size(x)    (sizeof(x) + LUAI_EXTRASPACE)
-#define fromstate(l)    (cast(lu_byte *, (l)) - LUAI_EXTRASPACE)
-#define tostate(l)   (cast(lua_State *, cast(lu_byte *, l) + LUAI_EXTRASPACE))
+#define state_size(x)    (sizeof(x))
+#define fromstate(l)    (cast(lu_byte *, (l)))
+#define tostate(l)   (cast(lua_State *, cast(lu_byte *, l)))
 
 
 /*
@@ -126,7 +126,6 @@ lua_State *luaE_newthread(lua_State *L) {
 void luaE_freethread(lua_State *L, lua_State *L1) {
     luaF_close(L1, L1->stack);  /* close all upvalues for this thread */
     lua_assert(L1->openupval == NULL);
-    luai_userstatefree(L1);
     freestack(L, L1);
     luaM_freemem(L, fromstate(L1), state_size(lua_State));
 }
@@ -175,8 +174,7 @@ LUA_API lua_State *lua_newstate(lua_Alloc f, void *ud) {
         /* memory allocation error: free partial state */
         close_state(L);
         L = NULL;
-    } else
-        luai_userstateopen(L);
+    }
     return L;
 }
 
@@ -199,7 +197,6 @@ LUA_API void lua_close(lua_State *L) {
         L->nCcalls = L->baseCcalls = 0;
     } while (luaD_rawrunprotected(L, callallgcTM, NULL) != 0);
     lua_assert(G(L)->tmudata == NULL);
-    luai_userstateclose(L);
     close_state(L);
 }
 

@@ -507,37 +507,6 @@
 
 
 /*
-@@ lua_popen spawns a new process connected to the current one through
-@* the file streams.
-** CHANGE it if you have a way to implement it in your system.
-*/
-#define lua_popen(L,c,m)	((void)((void)c, m),  \
-        luaL_error(L, LUA_QL("popen") " not supported"), (FILE*)0)
-#define lua_pclose(L,file)		((void)((void)L, file), 0)
-
-/*
-@@ LUAI_EXTRASPACE allows you to add user-specific data in a lua_State
-@* (the data goes just *before* the lua_State pointer).
-** CHANGE (define) this if you really need that. This value must be
-** a multiple of the maximum alignment required for your machine.
-*/
-#define LUAI_EXTRASPACE        0
-
-
-/*
-@@ luai_userstate* allow user-specific actions on threads.
-** CHANGE them if you defined LUAI_EXTRASPACE and need to do something
-** extra when a thread is created/deleted/resumed/yielded.
-*/
-#define luai_userstateopen(L)        ((void)L)
-#define luai_userstateclose(L)        ((void)L)
-#define luai_userstatethread(L, L1)    ((void)L)
-#define luai_userstatefree(L)        ((void)L)
-#define luai_userstateresume(L, n)    ((void)L)
-#define luai_userstateyield(L, n)    ((void)L)
-
-
-/*
 @@ LUA_INTFRMLEN is the length modifier for integer conversions
 @* in 'string.format'.
 @@ LUA_INTFRM_T is the integer type correspoding to the previous length
@@ -561,12 +530,4 @@
 
 /* =================================================================== */
 
-/*
-** Local configuration. You can use this space to add your redefinitions
-** without modifying the main part of the file.
-*/
-
-
-
 #endif
-
