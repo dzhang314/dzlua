@@ -68,18 +68,6 @@ static int getn(lua_State *L) {
 }
 
 
-static int setn(lua_State *L) {
-    luaL_checktype(L, 1, LUA_TTABLE);
-#ifndef luaL_setn
-    luaL_setn(L, 1, luaL_checkint(L, 2));
-#else
-    luaL_error(L, LUA_QL("setn") " is obsolete");
-#endif
-    lua_pushvalue(L, 1);
-    return 1;
-}
-
-
 static int tinsert(lua_State *L) {
     int e = aux_getn(L, 1) + 1;  /* first empty element */
     int pos;  /* where to insert new element */
@@ -102,7 +90,6 @@ static int tinsert(lua_State *L) {
             return luaL_error(L, "wrong number of arguments to " LUA_QL("insert"));
         }
     }
-    luaL_setn(L, 1, e);  /* new size */
     lua_rawseti(L, 1, pos);  /* t[pos] = v */
     return 0;
 }
@@ -113,7 +100,6 @@ static int tremove(lua_State *L) {
     int pos = luaL_optint(L, 2, e);
     if (!(1 <= pos && pos <= e))  /* position is outside bounds? */
         return 0;  /* nothing to remove */
-    luaL_setn(L, 1, e - 1);  /* t.n = n-1 */
     lua_rawgeti(L, 1, pos);  /* result = t[pos] */
     for (; pos < e; pos++) {
         lua_rawgeti(L, 1, pos + 1);
@@ -269,7 +255,6 @@ static const luaL_Reg tab_funcs[] = {
         {"maxn",     maxn},
         {"insert",   tinsert},
         {"remove",   tremove},
-        {"setn",     setn},
         {"sort",     sort},
         {NULL, NULL}
 };
