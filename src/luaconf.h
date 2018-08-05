@@ -17,39 +17,7 @@
 ** CHANGE it (define it) if you want Lua to avoid the use of any
 ** non-ansi feature or library.
 */
-#if defined(__STRICT_ANSI__)
 #define LUA_ANSI
-#endif
-
-
-#if !defined(LUA_ANSI) && defined(_WIN32)
-#define LUA_WIN
-#endif
-
-#if defined(LUA_USE_LINUX)
-#define LUA_USE_POSIX
-#define LUA_USE_DLOPEN		/* needs an extra library: -ldl */
-#define LUA_USE_READLINE	/* needs some extra libraries */
-#endif
-
-#if defined(LUA_USE_MACOSX)
-#define LUA_USE_POSIX
-#define LUA_DL_DYLD		/* does not need extra library */
-#endif
-
-
-
-/*
-@@ LUA_USE_POSIX includes all functionallity listed as X/Open System
-@* Interfaces Extension (XSI).
-** CHANGE it (define it) if your system is XSI compatible.
-*/
-#if defined(LUA_USE_POSIX)
-#define LUA_USE_MKSTEMP
-#define LUA_USE_ISATTY
-#define LUA_USE_POPEN
-#define LUA_USE_ULONGJMP
-#endif
 
 
 /*
@@ -217,16 +185,7 @@
 ** CHANGE it if you have a better definition for non-POSIX/non-Windows
 ** systems.
 */
-#if defined(LUA_USE_ISATTY)
-#include <unistd.h>
-#define lua_stdin_is_tty()	isatty(0)
-#elif defined(LUA_WIN)
-#include <io.h>
-#include <stdio.h>
-#define lua_stdin_is_tty()	_isatty(_fileno(stdin))
-#else
 #define lua_stdin_is_tty()	1  /* assume stdin is a tty */
-#endif
 
 
 /*
@@ -263,22 +222,11 @@
 ** CHANGE them if you want to improve this functionality (e.g., by using
 ** GNU readline and history facilities).
 */
-#if defined(LUA_USE_READLINE)
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#define lua_readline(L,b,p)	((void)L, ((b)=readline(p)) != NULL)
-#define lua_saveline(L,idx) \
-    if (lua_strlen(L,idx) > 0)  /* non-empty line? */ \
-      add_history(lua_tostring(L, idx));  /* add it to history */
-#define lua_freeline(L,b)	((void)L, free(b))
-#else
 #define lua_readline(L,b,p)	\
     ((void)L, fputs(p, stdout), fflush(stdout),  /* show prompt */ \
     fgets(b, LUA_MAXINPUT, stdin) != NULL)  /* get line */
 #define lua_saveline(L,idx)	{ (void)L; (void)idx; }
 #define lua_freeline(L,b)	{ (void)L; (void)b; }
-#endif
 
 #endif
 
@@ -605,12 +553,6 @@ union luai_Cast { double l_d; long l_l; };
     { if ((c)->status == 0) (c)->status = -1; }
 #define luai_jmpbuf	int  /* dummy variable */
 
-#elif defined(LUA_USE_ULONGJMP)
-/* in Unix, try _longjmp/_setjmp (more efficient) */
-#define LUAI_THROW(L,c)	_longjmp((c)->b, 1)
-#define LUAI_TRY(L,c,a)	if (_setjmp((c)->b) == 0) { a }
-#define luai_jmpbuf	jmp_buf
-
 #else
 /* default handling with long jumps */
 #define LUAI_THROW(L, c)    longjmp((c)->b, 1)
@@ -638,19 +580,8 @@ union luai_Cast { double l_d; long l_l; };
 */
 #if defined(loslib_c) || defined(luaall_c)
 
-#if defined(LUA_USE_MKSTEMP)
-#include <unistd.h>
-#define LUA_TMPNAMBUFSIZE	32
-#define lua_tmpnam(b,e)	{ \
-    strcpy(b, "/tmp/lua_XXXXXX"); \
-    e = mkstemp(b); \
-    if (e != -1) close(e); \
-    e = (e == -1); }
-
-#else
 #define LUA_TMPNAMBUFSIZE	L_tmpnam
 #define lua_tmpnam(b,e)		{ e = (tmpnam(b) == NULL); }
-#endif
 
 #endif
 
@@ -660,46 +591,9 @@ union luai_Cast { double l_d; long l_l; };
 @* the file streams.
 ** CHANGE it if you have a way to implement it in your system.
 */
-#if defined(LUA_USE_POPEN)
-
-#define lua_popen(L,c,m)	((void)L, fflush(NULL), popen(c,m))
-#define lua_pclose(L,file)	((void)L, (pclose(file) != -1))
-
-#elif defined(LUA_WIN)
-
-#define lua_popen(L, c, m)    ((void)L, _popen(c,m))
-#define lua_pclose(L, file)    ((void)L, (_pclose(file) != -1))
-
-#else
-
 #define lua_popen(L,c,m)	((void)((void)c, m),  \
         luaL_error(L, LUA_QL("popen") " not supported"), (FILE*)0)
 #define lua_pclose(L,file)		((void)((void)L, file), 0)
-
-#endif
-
-/*
-@@ LUA_DL_* define which dynamic-library system Lua should use.
-** CHANGE here if Lua has problems choosing the appropriate
-** dynamic-library system for your platform (either Windows' DLL, Mac's
-** dyld, or Unix's dlopen). If your system is some kind of Unix, there
-** is a good chance that it has dlopen, so LUA_DL_DLOPEN will work for
-** it.  To use dlopen you also need to adapt the src/Makefile (probably
-** adding -ldl to the linker options), so Lua does not select it
-** automatically.  (When you change the makefile to add -ldl, you must
-** also add -DLUA_USE_DLOPEN.)
-** If you do not want any kind of dynamic library, undefine all these
-** options.
-** By default, _WIN32 gets LUA_DL_DLL and MAC OS X gets LUA_DL_DYLD.
-*/
-#if defined(LUA_USE_DLOPEN)
-#define LUA_DL_DLOPEN
-#endif
-
-#if defined(LUA_WIN)
-#define LUA_DL_DLL
-#endif
-
 
 /*
 @@ LUAI_EXTRASPACE allows you to add user-specific data in a lua_State
