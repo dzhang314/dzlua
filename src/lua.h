@@ -140,7 +140,7 @@ LUA_API int (lua_isuserdata)(lua_State *L, int idx);
 
 LUA_API int (lua_type)(lua_State *L, int idx);
 
-LUA_API const char *(lua_typename)(lua_State *L, int tp);
+LUA_API const char *(lua_typename)(int tp);
 
 LUA_API int (lua_equal)(lua_State *L, int idx1, int idx2);
 
