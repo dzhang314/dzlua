@@ -562,14 +562,3 @@ int luaH_getn(Table *t) {
         return j;  /* that is easy... */
     else return unbound_search(t, j);
 }
-
-
-#if defined(LUA_DEBUG)
-
-Node *luaH_mainposition (const Table *t, const TValue *key) {
-  return mainposition(t, key);
-}
-
-int luaH_isdummy (Node *n) { return n == dummynode; }
-
-#endif
