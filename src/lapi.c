@@ -23,12 +23,6 @@
 #include "lvm.h"
 
 
-const char lua_ident[] =
-        "$Lua: " LUA_RELEASE " " LUA_COPYRIGHT " $\n"
-        "$Authors: " LUA_AUTHORS " $\n"
-        "$URL: www.lua.org $\n";
-
-
 #define api_checknelems(L, n)    api_check(L, (n) <= (L->top - L->base))
 
 #define api_checkvalidindex(L, i)    api_check(L, (i) != luaO_nilobject)
