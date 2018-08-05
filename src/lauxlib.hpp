@@ -102,7 +102,6 @@ LUALIB_API const char *(luaL_findtable)(lua_State *L, int idx,
 #define luaL_optstring(L, n, d)    (luaL_optlstring(L, (n), (d), NULL))
 #define luaL_checkint(L, n)    ((int)luaL_checkinteger(L, (n)))
 #define luaL_optint(L, n, d)    ((int)luaL_optinteger(L, (n), (d)))
-#define luaL_checklong(L, n)    ((long)luaL_checkinteger(L, (n)))
 #define luaL_optlong(L, n, d)    ((long)luaL_optinteger(L, (n), (d)))
 
 #define luaL_typename(L, i)    lua_typename(lua_type(L,(i)))
@@ -136,9 +135,6 @@ typedef struct luaL_Buffer {
   ((void)((B)->p < ((B)->buffer+LUAL_BUFFERSIZE) || luaL_prepbuffer(B)), \
    (*(B)->p++ = (char)(c)))
 
-/* compatibility only */
-#define luaL_putchar(B, c)    luaL_addchar(B,c)
-
 #define luaL_addsize(B, n)    ((B)->p += (n))
 
 LUALIB_API void (luaL_buffinit)(lua_State *L, luaL_Buffer *B);
@@ -156,23 +152,7 @@ LUALIB_API void (luaL_pushresult)(luaL_Buffer *B);
 
 /* }====================================================== */
 
-
-/* compatibility with ref system */
-
 /* pre-defined references */
-#define LUA_NOREF       (-2)
 #define LUA_REFNIL      (-1)
 
-#define lua_ref(L, lock) ((lock) ? luaL_ref(L, LUA_REGISTRYINDEX) : \
-      (lua_pushstring(L, "unlocked references are obsolete"), lua_error(L), 0))
-
-#define lua_unref(L, ref)        luaL_unref(L, LUA_REGISTRYINDEX, (ref))
-
-#define lua_getref(L, ref)       lua_rawgeti(L, LUA_REGISTRYINDEX, (ref))
-
-
-#define luaL_reg    luaL_Reg
-
 #endif
-
-
