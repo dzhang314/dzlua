@@ -3,13 +3,13 @@
 #define lmem_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldebug.h"
-#include "ldo.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lstate.h"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lstate.hpp"
 
 
 

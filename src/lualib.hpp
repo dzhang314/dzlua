@@ -1,7 +1,7 @@
 #ifndef lualib_h
 #define lualib_h
 
-#include "lua.h"
+#include "lua.hpp"
 
 
 /* Key to file-handle type */

@@ -3,11 +3,11 @@
 #define ldump_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lobject.h"
-#include "lstate.h"
-#include "lundump.h"
+#include "lobject.hpp"
+#include "lstate.hpp"
+#include "lundump.hpp"
 
 typedef struct {
     lua_State *L;

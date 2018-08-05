@@ -2,9 +2,9 @@
 #define lstring_h
 
 
-#include "lgc.h"
-#include "lobject.h"
-#include "lstate.h"
+#include "lgc.hpp"
+#include "lobject.hpp"
+#include "lstate.hpp"
 
 
 #define sizestring(s)    (sizeof(union TString)+((s)->len+1)*sizeof(char))

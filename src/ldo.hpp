@@ -2,9 +2,9 @@
 #define ldo_h
 
 
-#include "lobject.h"
-#include "lstate.h"
-#include "lzio.h"
+#include "lobject.hpp"
+#include "lstate.hpp"
+#include "lzio.hpp"
 
 
 #define luaD_checkstack(L, n)    \

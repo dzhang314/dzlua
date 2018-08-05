@@ -5,8 +5,8 @@
 #include <stdarg.h>
 
 
-#include "llimits.h"
-#include "lua.h"
+#include "llimits.hpp"
+#include "lua.hpp"
 
 
 /* tags for values visible from Lua */

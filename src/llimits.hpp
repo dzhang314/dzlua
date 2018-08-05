@@ -6,7 +6,7 @@
 #include <stddef.h>
 
 
-#include "lua.h"
+#include "lua.hpp"
 
 
 typedef LUAI_UINT32 lu_int32;

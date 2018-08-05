@@ -2,7 +2,7 @@
 #define lfunc_h
 
 
-#include "lobject.h"
+#include "lobject.hpp"
 
 
 #define sizeCclosure(n)    (cast(int, sizeof(CClosure)) + \

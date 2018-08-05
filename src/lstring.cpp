@@ -3,12 +3,12 @@
 #define lstring_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lmem.h"
-#include "lobject.h"
-#include "lstate.h"
-#include "lstring.h"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
 
 
 void luaS_resize(lua_State *L, int newsize) {

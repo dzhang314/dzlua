@@ -3,13 +3,13 @@
 #define lfunc_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lfunc.h"
-#include "lgc.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lstate.h"
+#include "lfunc.hpp"
+#include "lgc.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lstate.hpp"
 
 
 Closure *luaF_newCclosure(lua_State *L, int nelems, Table *e) {

@@ -7,14 +7,14 @@
 #define lobject_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldo.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "lvm.h"
+#include "ldo.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "lvm.hpp"
 
 
 const TValue luaO_nilobject_ = {{NULL}, LUA_TNIL};

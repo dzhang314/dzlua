@@ -1,9 +1,9 @@
 #ifndef lzio_h
 #define lzio_h
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lmem.h"
+#include "lmem.hpp"
 
 
 #define EOZ    (-1)            /* end of stream */

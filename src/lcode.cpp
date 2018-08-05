@@ -3,18 +3,18 @@
 #define lcode_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lcode.h"
-#include "ldebug.h"
-#include "ldo.h"
-#include "lgc.h"
-#include "llex.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lopcodes.h"
-#include "lparser.h"
-#include "ltable.h"
+#include "lcode.hpp"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lgc.hpp"
+#include "llex.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lopcodes.hpp"
+#include "lparser.hpp"
+#include "ltable.hpp"
 
 
 #define hasjumps(e)    ((e)->t != (e)->f)

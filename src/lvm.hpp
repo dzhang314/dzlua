@@ -2,9 +2,9 @@
 #define lvm_h
 
 
-#include "ldo.h"
-#include "lobject.h"
-#include "ltm.h"
+#include "ldo.hpp"
+#include "lobject.hpp"
+#include "ltm.hpp"
 
 
 #define tostring(L, o) ((ttype(o) == LUA_TSTRING) || (luaV_tostring(L, o)))

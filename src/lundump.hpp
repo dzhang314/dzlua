@@ -1,8 +1,8 @@
 #ifndef lundump_h
 #define lundump_h
 
-#include "lobject.h"
-#include "lzio.h"
+#include "lobject.hpp"
+#include "lzio.hpp"
 
 /* load one chunk; from lundump.c */
 LUAI_FUNC Proto *luaU_undump(lua_State *L, ZIO *Z, Mbuffer *buff, const char *name);

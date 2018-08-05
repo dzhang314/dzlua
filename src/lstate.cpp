@@ -3,18 +3,18 @@
 #define lstate_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldebug.h"
-#include "ldo.h"
-#include "lfunc.h"
-#include "lgc.h"
-#include "llex.h"
-#include "lmem.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
-#include "ltm.h"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lfunc.hpp"
+#include "lgc.hpp"
+#include "llex.hpp"
+#include "lmem.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
+#include "ltm.hpp"
 
 
 #define state_size(x)    (sizeof(x) + LUAI_EXTRASPACE)

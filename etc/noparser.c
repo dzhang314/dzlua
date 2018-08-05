@@ -14,9 +14,9 @@
 
 #define LUA_CORE
 
-#include "llex.h"
-#include "lparser.h"
-#include "lzio.h"
+#include "llex.hpp"
+#include "lparser.hpp"
+#include "lzio.hpp"
 
 LUAI_FUNC void luaX_init (lua_State *L) {
   UNUSED(L);
@@ -32,7 +32,7 @@ LUAI_FUNC Proto *luaY_parser (lua_State *L, ZIO *z, Mbuffer *buff, const char *n
 }
 
 #ifdef NODUMP
-#include "lundump.h"
+#include "lundump.hpp"
 
 LUAI_FUNC int luaU_dump (lua_State* L, const Proto* f, lua_Writer w, void* data, int strip) {
   UNUSED(f);

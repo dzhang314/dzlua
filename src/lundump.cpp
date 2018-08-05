@@ -3,16 +3,16 @@
 #define lundump_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldebug.h"
-#include "ldo.h"
-#include "lfunc.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lstring.h"
-#include "lundump.h"
-#include "lzio.h"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lfunc.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lstring.hpp"
+#include "lundump.hpp"
+#include "lzio.hpp"
 
 typedef struct {
     lua_State *L;

@@ -3,12 +3,12 @@
 #define lzio_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "llimits.h"
-#include "lmem.h"
-#include "lstate.h"
-#include "lzio.h"
+#include "llimits.hpp"
+#include "lmem.hpp"
+#include "lstate.hpp"
+#include "lzio.hpp"
 
 
 int luaZ_fill(ZIO *z) {

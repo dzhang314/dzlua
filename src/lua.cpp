@@ -5,10 +5,10 @@
 
 #define lua_c
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lauxlib.h"
-#include "lualib.h"
+#include "lauxlib.hpp"
+#include "lualib.hpp"
 
 
 static lua_State *globalL = NULL;

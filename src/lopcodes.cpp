@@ -2,7 +2,7 @@
 #define LUA_CORE
 
 
-#include "lopcodes.h"
+#include "lopcodes.hpp"
 
 
 #define opmode(t, a, b, c, m) (((t)<<7) | ((a)<<6) | ((b)<<4) | ((c)<<2) | (m))

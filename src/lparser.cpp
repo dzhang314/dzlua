@@ -3,20 +3,20 @@
 #define lparser_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lcode.h"
-#include "ldebug.h"
-#include "ldo.h"
-#include "lfunc.h"
-#include "llex.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lopcodes.h"
-#include "lparser.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
+#include "lcode.hpp"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lfunc.hpp"
+#include "llex.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lopcodes.hpp"
+#include "lparser.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
 
 
 #define hasmultret(k)        ((k) == VCALL || (k) == VVARARG)

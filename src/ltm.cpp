@@ -3,13 +3,13 @@
 #define ltm_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lobject.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
-#include "ltm.h"
+#include "lobject.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
+#include "ltm.hpp"
 
 
 const char *const luaT_typenames[] = {

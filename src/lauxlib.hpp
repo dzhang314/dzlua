@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#include "lua.h"
+#include "lua.hpp"
 
 
 #define luaL_getn(L, i)          ((int)lua_objlen(L, i))

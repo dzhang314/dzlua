@@ -2,7 +2,7 @@
 #define lapi_h
 
 
-#include "lobject.h"
+#include "lobject.hpp"
 
 
 LUAI_FUNC void luaA_pushobject(lua_State *L, const TValue *o);

@@ -1,10 +1,10 @@
 #ifndef lcode_h
 #define lcode_h
 
-#include "llex.h"
-#include "lobject.h"
-#include "lopcodes.h"
-#include "lparser.h"
+#include "llex.hpp"
+#include "lobject.hpp"
+#include "lopcodes.hpp"
+#include "lparser.hpp"
 
 
 /*

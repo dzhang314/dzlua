@@ -1,8 +1,8 @@
 #ifndef llex_h
 #define llex_h
 
-#include "lobject.h"
-#include "lzio.h"
+#include "lobject.hpp"
+#include "lzio.hpp"
 
 
 #define FIRST_RESERVED    257

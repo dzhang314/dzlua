@@ -2,7 +2,7 @@
 #define ldebug_h
 
 
-#include "lstate.h"
+#include "lstate.hpp"
 
 
 #define pcRel(pc, p)    (cast(int, (pc) - (p)->code) - 1)

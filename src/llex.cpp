@@ -5,16 +5,16 @@
 #define llex_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldo.h"
-#include "llex.h"
-#include "lobject.h"
-#include "lparser.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
-#include "lzio.h"
+#include "ldo.hpp"
+#include "llex.hpp"
+#include "lobject.hpp"
+#include "lparser.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
+#include "lzio.hpp"
 
 
 #define next(ls) (ls->current = zgetc(ls->z))

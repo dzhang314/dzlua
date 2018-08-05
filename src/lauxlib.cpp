@@ -13,9 +13,9 @@
 #define lauxlib_c
 #define LUA_LIB
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lauxlib.h"
+#include "lauxlib.hpp"
 
 
 #define FREELIST_REF    0    /* free list of references */

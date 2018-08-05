@@ -7,10 +7,10 @@
 #define loslib_c
 #define LUA_LIB
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lauxlib.h"
-#include "lualib.h"
+#include "lauxlib.hpp"
+#include "lualib.hpp"
 
 
 static int os_pushresult(lua_State *L, int i, const char *filename) {

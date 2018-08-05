@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 
-#include "luaconf.h"
+#include "luaconf.hpp"
 
 
 #define LUA_VERSION    "Lua 5.1"

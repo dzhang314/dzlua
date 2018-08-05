@@ -5,19 +5,19 @@
 #define lvm_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldebug.h"
-#include "ldo.h"
-#include "lfunc.h"
-#include "lgc.h"
-#include "lobject.h"
-#include "lopcodes.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
-#include "ltm.h"
-#include "lvm.h"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lfunc.hpp"
+#include "lgc.hpp"
+#include "lobject.hpp"
+#include "lopcodes.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
+#include "ltm.hpp"
+#include "lvm.hpp"
 
 
 

@@ -6,10 +6,10 @@
 #define lbaselib_c
 #define LUA_LIB
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lauxlib.h"
-#include "lualib.h"
+#include "lauxlib.hpp"
+#include "lualib.hpp"
 
 
 /*

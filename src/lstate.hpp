@@ -1,11 +1,11 @@
 #ifndef lstate_h
 #define lstate_h
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "lobject.h"
-#include "ltm.h"
-#include "lzio.h"
+#include "lobject.hpp"
+#include "ltm.hpp"
+#include "lzio.hpp"
 
 
 struct lua_longjmp;  /* defined in ldo.c */

@@ -5,23 +5,23 @@
 #define ldo_c
 #define LUA_CORE
 
-#include "lua.h"
+#include "lua.hpp"
 
-#include "ldebug.h"
-#include "ldo.h"
-#include "lfunc.h"
-#include "lgc.h"
-#include "lmem.h"
-#include "lobject.h"
-#include "lopcodes.h"
-#include "lparser.h"
-#include "lstate.h"
-#include "lstring.h"
-#include "ltable.h"
-#include "ltm.h"
-#include "lundump.h"
-#include "lvm.h"
-#include "lzio.h"
+#include "ldebug.hpp"
+#include "ldo.hpp"
+#include "lfunc.hpp"
+#include "lgc.hpp"
+#include "lmem.hpp"
+#include "lobject.hpp"
+#include "lopcodes.hpp"
+#include "lparser.hpp"
+#include "lstate.hpp"
+#include "lstring.hpp"
+#include "ltable.hpp"
+#include "ltm.hpp"
+#include "lundump.hpp"
+#include "lvm.hpp"
+#include "lzio.hpp"
 
 
 
