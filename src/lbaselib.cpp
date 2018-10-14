@@ -4,7 +4,6 @@
 #include <cstring>
 
 #define lbaselib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

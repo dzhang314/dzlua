@@ -2,7 +2,6 @@
 #include <cmath>
 
 #define lmathlib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

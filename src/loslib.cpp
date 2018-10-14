@@ -5,7 +5,6 @@
 #include <ctime>
 
 #define loslib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

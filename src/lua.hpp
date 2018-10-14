@@ -4,21 +4,17 @@
 #include <cstdarg>
 #include <cstddef>
 
-
 #include "luaconf.hpp"
 
-
-#define LUA_VERSION    "Lua 5.1"
-#define LUA_RELEASE    "Lua 5.1.5"
-#define LUA_COPYRIGHT    "Copyright (C) 1994-2012 Lua.org, PUC-Rio"
-
+#define LUA_VERSION    "DZLua 1.0"
+#define LUA_RELEASE    "DZLua 1.0.0"
+#define LUA_COPYRIGHT  "Copyright (C) 2018 David K. Zhang"
 
 /* mark for precompiled code (`<esc>Lua') */
 #define    LUA_SIGNATURE    "\033Lua"
 
 /* option for multiple returns in `lua_pcall' and `lua_call' */
 #define LUA_MULTRET    (-1)
-
 
 /*
 ** pseudo-indices
@@ -75,14 +71,6 @@ using lua_Alloc = void *(*)(void *, void *, size_t, size_t);
 
 /* minimum Lua stack available to a C function */
 #define LUA_MINSTACK    20
-
-
-/*
-** generic extra include file
-*/
-#if defined(LUA_USER_H)
-#include LUA_USER_H
-#endif
 
 
 /* type of numbers in Lua */

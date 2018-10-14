@@ -3,7 +3,6 @@
 #include <cstring>
 
 #define ldblib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

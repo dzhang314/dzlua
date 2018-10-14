@@ -1,7 +1,6 @@
 #include <cstddef>
 
 #define ltablib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

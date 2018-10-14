@@ -176,7 +176,7 @@ int luaH_next(lua_State *L, Table *t, StkId key) {
 */
 
 
-static int computesizes(int nums[], int *narray) {
+static int computesizes(const int *nums, int *narray) {
     int i;
     int twotoi;  /* 2^i */
     int a = 0;  /* number of elements smaller than 2^i */

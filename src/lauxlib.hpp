@@ -67,10 +67,6 @@ LUALIB_API int (luaL_error)(lua_State *L, const char *fmt, ...);
 LUALIB_API int (luaL_checkoption)(lua_State *L, int narg, const char *def,
                                   const char *const lst[]);
 
-LUALIB_API int (luaL_ref)(lua_State *L, int t);
-
-LUALIB_API void (luaL_unref)(lua_State *L, int t, int ref);
-
 LUALIB_API int (luaL_loadfile)(lua_State *L, const char *filename);
 
 LUALIB_API int (luaL_loadbuffer)(lua_State *L, const char *buff, size_t sz,

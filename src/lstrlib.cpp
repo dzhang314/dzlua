@@ -5,7 +5,6 @@
 #include <cstring>
 
 #define lstrlib_c
-#define LUA_LIB
 
 #include "lua.hpp"
 

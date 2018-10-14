@@ -768,7 +768,6 @@ static void f_call(lua_State *L, void *ud) {
 
 
 LUA_API int lua_pcall(lua_State *L, int nargs, int nresults, int errfunc) {
-    struct CallS c;
     int status;
     ptrdiff_t func;
     lua_lock(L);
@@ -781,8 +780,7 @@ LUA_API int lua_pcall(lua_State *L, int nargs, int nresults, int errfunc) {
         api_checkvalidindex(L, o);
         func = savestack(L, o);
     }
-    c.func = L->top - (nargs + 1);  /* function to be called */
-    c.nresults = nresults;
+    CallS c{L->top - (nargs + 1), nresults};
     status = luaD_pcall(L, f_call, &c, savestack(L, c.func), func);
     adjustresults(L, nresults);
     lua_unlock(L);
