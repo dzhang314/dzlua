@@ -1,6 +1,6 @@
-#include <setjmp.h>
-#include <stdlib.h>
-#include <string.h>
+#include <csetjmp>
+#include <cstdlib>
+#include <cstring>
 
 #define ldo_c
 #define LUA_CORE
@@ -80,7 +80,7 @@ static void resetstack(lua_State *L, int status) {
     L->allowhook = 1;
     restore_stack_limit(L);
     L->errfunc = 0;
-    L->errorJmp = NULL;
+    L->errorJmp = nullptr;
 }
 
 
@@ -119,7 +119,7 @@ static void correctstack(lua_State *L, TValue *oldstack) {
     CallInfo *ci;
     GCObject *up;
     L->top = (L->top - oldstack) + L->stack;
-    for (up = L->openupval; up != NULL; up = up->gch.next)
+    for (up = L->openupval; up != nullptr; up = up->gch.next)
         gco2uv(up)->v = (gco2uv(up)->v - oldstack) + L->stack;
     for (ci = L->base_ci; ci <= L->ci; ci++) {
         ci->top = (ci->top - oldstack) + L->stack;

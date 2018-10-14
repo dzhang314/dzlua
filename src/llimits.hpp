@@ -2,22 +2,22 @@
 #define llimits_h
 
 
-#include <limits.h>
-#include <stddef.h>
+#include <climits>
+#include <cstddef>
 
 
 #include "lua.hpp"
 
 
-typedef LUAI_UINT32 lu_int32;
+using lu_int32 = unsigned int;
 
-typedef LUAI_UMEM lu_mem;
+using lu_mem = size_t;
 
-typedef LUAI_MEM l_mem;
+using l_mem = ptrdiff_t;
 
 
 /* chars used as small naturals (so that `char' is reserved for characters) */
-typedef unsigned char lu_byte;
+using lu_byte = unsigned char;
 
 
 #define MAX_SIZET    ((size_t)(~(size_t)0)-2)
@@ -36,11 +36,11 @@ typedef unsigned char lu_byte;
 
 
 /* type to ensure maximum alignment */
-typedef LUAI_USER_ALIGNMENT_T L_Umaxalign;
+using L_Umaxalign = union L_Umaxalign;
 
 
 /* result of a `usual argument conversion' over lua_Number */
-typedef LUAI_UACNUMBER l_uacNumber;
+using l_uacNumber = double;
 
 
 /* internal assertions for in-house debugging */
@@ -76,7 +76,7 @@ typedef LUAI_UACNUMBER l_uacNumber;
 ** type for virtual-machine instructions
 ** must be an unsigned with (at least) 4 bytes (see details in lopcodes.h)
 */
-typedef lu_int32 Instruction;
+using Instruction = lu_int32;
 
 
 

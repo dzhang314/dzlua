@@ -29,7 +29,7 @@
 
 
 /* type of protected functions, to be ran by `runprotected' */
-typedef void (*Pfunc)(lua_State *L, void *ud);
+using Pfunc = void (*)(lua_State *, void *);
 
 LUAI_FUNC int luaD_protectedparser(lua_State *L, ZIO *z, const char *name);
 

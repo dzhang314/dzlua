@@ -2,7 +2,7 @@
 #define lobject_h
 
 
-#include <stdarg.h>
+#include <cstdarg>
 
 
 #include "llimits.hpp"
@@ -26,7 +26,7 @@
 /*
 ** Union of all collectable objects
 */
-typedef union GCObject GCObject;
+using GCObject = union GCObject;
 
 
 /*
@@ -178,7 +178,7 @@ typedef struct lua_TValue {
 #define iscollectable(o)    (ttype(o) >= LUA_TSTRING)
 
 
-typedef TValue *StkId;  /* index to stack elements */
+using StkId = TValue *;  /* index to stack elements */
 
 
 /*

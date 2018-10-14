@@ -1,8 +1,8 @@
-#include <ctype.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cctype>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define lobject_c
 #define LUA_CORE
@@ -17,7 +17,7 @@
 #include "lvm.hpp"
 
 
-const TValue luaO_nilobject_ = {{NULL}, LUA_TNIL};
+const TValue luaO_nilobject_ = {{nullptr}, LUA_TNIL};
 
 
 /*
@@ -109,13 +109,13 @@ const char *luaO_pushvfstring(lua_State *L, const char *fmt, va_list argp) {
     pushstr(L, "");
     for (;;) {
         const char *e = strchr(fmt, '%');
-        if (e == NULL) break;
+        if (e == nullptr) break;
         setsvalue2s(L, L->top, luaS_newlstr(L, fmt, e - fmt));
         incr_top(L);
         switch (*(e + 1)) {
             case 's': {
                 const char *s = va_arg(argp, char *);
-                if (s == NULL) s = "(null)";
+                if (s == nullptr) s = "(null)";
                 pushstr(L, s);
                 break;
             }

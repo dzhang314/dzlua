@@ -1,8 +1,8 @@
 #ifndef lua_h
 #define lua_h
 
-#include <stdarg.h>
-#include <stddef.h>
+#include <cstdarg>
+#include <cstddef>
 
 
 #include "luaconf.hpp"
@@ -37,23 +37,23 @@
 #define LUA_ERRERR    5
 
 
-typedef struct lua_State lua_State;
+using lua_State = struct lua_State;
 
-typedef int (*lua_CFunction)(lua_State *L);
+using lua_CFunction = int (*)(lua_State *);
 
 
 /*
 ** functions that read/write blocks when loading/dumping Lua chunks
 */
-typedef const char *(*lua_Reader)(lua_State *L, void *ud, size_t *sz);
+using lua_Reader = const char *(*)(lua_State *, void *, size_t *);
 
-typedef int (*lua_Writer)(lua_State *L, const void *p, size_t sz, void *ud);
+using lua_Writer = int (*)(lua_State *, const void *, size_t, void *);
 
 
 /*
 ** prototype for memory-allocation functions
 */
-typedef void *(*lua_Alloc)(void *ud, void *ptr, size_t osize, size_t nsize);
+using lua_Alloc = void *(*)(void *, void *, size_t, size_t);
 
 
 /*
@@ -86,11 +86,11 @@ typedef void *(*lua_Alloc)(void *ud, void *ptr, size_t osize, size_t nsize);
 
 
 /* type of numbers in Lua */
-typedef LUA_NUMBER lua_Number;
+using lua_Number = double;
 
 
 /* type for integer functions */
-typedef LUA_INTEGER lua_Integer;
+using lua_Integer = ptrdiff_t;
 
 
 
@@ -136,13 +136,9 @@ LUA_API int (lua_isstring)(lua_State *L, int idx);
 
 LUA_API int (lua_iscfunction)(lua_State *L, int idx);
 
-LUA_API int (lua_isuserdata)(lua_State *L, int idx);
-
 LUA_API int (lua_type)(lua_State *L, int idx);
 
 LUA_API const char *(lua_typename)(int tp);
-
-LUA_API int (lua_equal)(lua_State *L, int idx1, int idx2);
 
 LUA_API int (lua_rawequal)(lua_State *L, int idx1, int idx2);
 
@@ -280,10 +276,6 @@ LUA_API int (lua_next)(lua_State *L, int idx);
 
 LUA_API void (lua_concat)(lua_State *L, int n);
 
-LUA_API lua_Alloc (lua_getallocf)(lua_State *L, void **ud);
-
-LUA_API void lua_setallocf(lua_State *L, lua_Alloc f, void *ud);
-
 
 
 /* 
@@ -296,15 +288,12 @@ LUA_API void lua_setallocf(lua_State *L, lua_Alloc f, void *ud);
 
 #define lua_newtable(L)        lua_createtable(L, 0, 0)
 
-#define lua_register(L, n, f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
-
 #define lua_pushcfunction(L, f)    lua_pushcclosure(L, (f), 0)
 
 #define lua_strlen(L, i)        lua_objlen(L, (i))
 
 #define lua_isfunction(L, n)    (lua_type(L, (n)) == LUA_TFUNCTION)
 #define lua_istable(L, n)    (lua_type(L, (n)) == LUA_TTABLE)
-#define lua_islightuserdata(L, n)    (lua_type(L, (n)) == LUA_TLIGHTUSERDATA)
 #define lua_isnil(L, n)        (lua_type(L, (n)) == LUA_TNIL)
 #define lua_isboolean(L, n)    (lua_type(L, (n)) == LUA_TBOOLEAN)
 #define lua_isthread(L, n)    (lua_type(L, (n)) == LUA_TTHREAD)
@@ -325,14 +314,7 @@ LUA_API void lua_setallocf(lua_State *L, lua_Alloc f, void *ud);
 ** compatibility macros and functions
 */
 
-#define lua_open()    luaL_newstate()
-
-#define lua_getregistry(L)    lua_pushvalue(L, LUA_REGISTRYINDEX)
-
 #define lua_getgccount(L)    lua_gc(L, LUA_GCCOUNT, 0)
-
-#define lua_Chunkreader        lua_Reader
-#define lua_Chunkwriter        lua_Writer
 
 
 /* hack */
@@ -364,11 +346,11 @@ LUA_API void lua_setlevel(lua_State *from, lua_State *to);
 #define LUA_MASKLINE    (1 << LUA_HOOKLINE)
 #define LUA_MASKCOUNT    (1 << LUA_HOOKCOUNT)
 
-typedef struct lua_Debug lua_Debug;  /* activation record */
+using lua_Debug = struct lua_Debug;  /* activation record */
 
 
 /* Functions to be called by the debuger in specific events */
-typedef void (*lua_Hook)(lua_State *L, lua_Debug *ar);
+using lua_Hook = void (*)(lua_State *, lua_Debug *);
 
 
 LUA_API int lua_getstack(lua_State *L, int level, lua_Debug *ar);
@@ -408,30 +390,5 @@ struct lua_Debug {
 };
 
 /* }====================================================================== */
-
-
-/******************************************************************************
-* Copyright (C) 1994-2012 Lua.org, PUC-Rio.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining
-* a copy of this software and associated documentation files (the
-* "Software"), to deal in the Software without restriction, including
-* without limitation the rights to use, copy, modify, merge, publish,
-* distribute, sublicense, and/or sell copies of the Software, and to
-* permit persons to whom the Software is furnished to do so, subject to
-* the following conditions:
-*
-* The above copyright notice and this permission notice shall be
-* included in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-******************************************************************************/
-
 
 #endif

@@ -1,8 +1,8 @@
 #ifndef lconfig_h
 #define lconfig_h
 
-#include <limits.h>
-#include <stddef.h>
+#include <climits>
+#include <cstddef>
 
 
 /*
@@ -10,14 +10,6 @@
 ** Search for "@@" to find all configurable definitions.
 ** ===================================================================
 */
-
-
-/*
-@@ LUA_ANSI controls the use of non-ansi features.
-** CHANGE it (define it) if you want Lua to avoid the use of any
-** non-ansi feature or library.
-*/
-#define LUA_ANSI
 
 
 /*
@@ -82,8 +74,6 @@
 @@ LUA_PATHSEP is the character that separates templates in a path.
 @@ LUA_PATH_MARK is the string that marks the substitution points in a
 @* template.
-@@ LUA_EXECDIR in a Windows path is replaced by the executable's
-@* directory.
 @@ LUA_IGMARK is a mark to ignore all before it when bulding the
 @* luaopen_ function name.
 ** CHANGE them if for some reason your system cannot use those
@@ -108,24 +98,8 @@
 @@ LUA_API is a mark for all core API functions.
 @@ LUALIB_API is a mark for all standard library functions.
 ** CHANGE them if you need to define those functions in some special way.
-** For instance, if you want to create one Windows DLL with the core and
-** the libraries, you may want to use the following definition (define
-** LUA_BUILD_AS_DLL to get it).
 */
-#if defined(LUA_BUILD_AS_DLL)
-
-#if defined(LUA_CORE) || defined(LUA_LIB)
-#define LUA_API __declspec(dllexport)
-#else
-#define LUA_API __declspec(dllimport)
-#endif
-
-#else
-
 #define LUA_API        extern
-
-#endif
-
 /* more often than not the libs go together with the core */
 #define LUALIB_API    LUA_API
 
@@ -180,15 +154,6 @@
 #if defined(lua_c) || defined(luaall_c)
 
 /*
-@@ lua_stdin_is_tty detects whether the standard input is a 'tty' (that
-@* is, whether we're running lua interactively).
-** CHANGE it if you have a better definition for non-POSIX/non-Windows
-** systems.
-*/
-#define lua_stdin_is_tty()	1  /* assume stdin is a tty */
-
-
-/*
 @@ LUA_PROMPT is the default prompt used by stand-alone Lua.
 @@ LUA_PROMPT2 is the default continuation prompt used by stand-alone Lua.
 ** CHANGE them if you want different prompts. (You can also change the
@@ -212,21 +177,6 @@
 ** CHANGE it if you need longer lines.
 */
 #define LUA_MAXINPUT	512
-
-
-/*
-@@ lua_readline defines how to show a prompt and then read a line from
-@* the standard input.
-@@ lua_saveline defines how to "save" a read line in a "history".
-@@ lua_freeline defines how to free a line read by lua_readline.
-** CHANGE them if you want to improve this functionality (e.g., by using
-** GNU readline and history facilities).
-*/
-#define lua_readline(L,b,p)	\
-    ((void)L, fputs(p, stdout), fflush(stdout),  /* show prompt */ \
-    fgets(b, LUA_MAXINPUT, stdin) != NULL)  /* get line */
-#define lua_saveline(L,idx)	{ (void)L; (void)idx; }
-#define lua_freeline(L,b)	{ (void)L; (void)b; }
 
 #endif
 

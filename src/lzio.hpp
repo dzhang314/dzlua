@@ -8,7 +8,7 @@
 
 #define EOZ    (-1)            /* end of stream */
 
-typedef struct Zio ZIO;
+using ZIO = struct Zio;
 
 #define char2int(c)    cast(int, cast(unsigned char, (c)))
 

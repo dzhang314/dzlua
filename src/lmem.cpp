@@ -1,4 +1,4 @@
-#include <stddef.h>
+#include <cstddef>
 
 #define lmem_c
 #define LUA_CORE
@@ -57,7 +57,7 @@ void *luaM_growaux_(lua_State *L, void *block, int *size, size_t size_elems,
 
 void *luaM_toobig(lua_State *L) {
     luaG_runerror(L, "memory allocation error: block too big");
-    return NULL;  /* to avoid warnings */
+    return nullptr;  /* to avoid warnings */
 }
 
 
@@ -68,7 +68,7 @@ void *luaM_realloc_(lua_State *L, void *block, size_t osize, size_t nsize) {
     global_State *g = G(L);
     lua_assert((osize == 0) == (block == NULL));
     block = (*g->frealloc)(g->ud, block, osize, nsize);
-    if (block == NULL && nsize > 0)
+    if (block == nullptr && nsize > 0)
         luaD_throw(L, LUA_ERRMEM);
     lua_assert((nsize == 0) == (block == NULL));
     g->totalbytes = (g->totalbytes - osize) + nsize;

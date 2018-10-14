@@ -1,8 +1,8 @@
-#include <errno.h>
-#include <locale.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include <cerrno>
+#include <clocale>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 
 #define loslib_c
 #define LUA_LIB
@@ -115,14 +115,14 @@ static int getfield(lua_State *L, const char *key, int d) {
 
 static int os_date(lua_State *L) {
     const char *s = luaL_optstring(L, 1, "%c");
-    time_t t = luaL_opt(L, (time_t) luaL_checknumber, 2, time(NULL));
+    time_t t = luaL_opt(L, (time_t) luaL_checknumber, 2, time(nullptr));
     struct tm *stm;
     if (*s == '!') {  /* UTC? */
         stm = gmtime(&t);
         s++;  /* skip `!' */
     } else
         stm = localtime(&t);
-    if (stm == NULL)  /* invalid date? */
+    if (stm == nullptr)  /* invalid date? */
         lua_pushnil(L);
     else if (strcmp(s, "*t") == 0) {
         lua_createtable(L, 0, 9);  /* 9 = number of fields */
@@ -161,7 +161,7 @@ static int os_date(lua_State *L) {
 static int os_time(lua_State *L) {
     time_t t;
     if (lua_isnoneornil(L, 1))  /* called without args? */
-        t = time(NULL);  /* get current time */
+        t = time(nullptr);  /* get current time */
     else {
         struct tm ts;
         luaL_checktype(L, 1, LUA_TTABLE);
@@ -196,7 +196,7 @@ static int os_setlocale(lua_State *L) {
     static const int cat[] = {LC_ALL, LC_COLLATE, LC_CTYPE, LC_MONETARY,
                               LC_NUMERIC, LC_TIME};
     static const char *const catnames[] = {"all", "collate", "ctype", "monetary",
-                                           "numeric", "time", NULL};
+                                           "numeric", "time", nullptr};
     const char *l = luaL_optstring(L, 1, NULL);
     int op = luaL_checkoption(L, 2, "all", catnames);
     lua_pushstring(L, setlocale(cat[op], l));
@@ -220,7 +220,7 @@ static const luaL_Reg syslib[] = {
         {"setlocale", os_setlocale},
         {"time",      os_time},
         {"tmpname",   os_tmpname},
-        {NULL, NULL}
+        {nullptr, nullptr}
 };
 
 /* }====================================================== */

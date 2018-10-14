@@ -1,5 +1,5 @@
-#include <stdlib.h>
-#include <math.h>
+#include <cstdlib>
+#include <cmath>
 
 #define lmathlib_c
 #define LUA_LIB
@@ -233,7 +233,7 @@ static const luaL_Reg mathlib[] = {
         {"sqrt",       math_sqrt},
         {"tanh",       math_tanh},
         {"tan",        math_tan},
-        {NULL, NULL}
+        {nullptr, nullptr}
 };
 
 

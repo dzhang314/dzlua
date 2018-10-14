@@ -1,4 +1,4 @@
-#include <string.h>
+#include <cstring>
 
 #define lparser_c
 #define LUA_CORE
@@ -136,7 +136,7 @@ static int registerlocalvar(LexState *ls, TString *varname) {
     int oldsize = f->sizelocvars;
     luaM_growvector(ls->L, f->locvars, fs->nlocvars, f->sizelocvars,
                     LocVar, SHRT_MAX, "too many local variables");
-    while (oldsize < f->sizelocvars) f->locvars[oldsize++].varname = NULL;
+    while (oldsize < f->sizelocvars) f->locvars[oldsize++].varname = nullptr;
     f->locvars[fs->nlocvars].varname = varname;
     luaC_objbarrier(ls->L, f, varname);
     return fs->nlocvars++;
@@ -184,7 +184,7 @@ static int indexupvalue(FuncState *fs, TString *name, expdesc *v) {
     luaY_checklimit(fs, f->nups + 1, LUAI_MAXUPVALUES, "upvalues");
     luaM_growvector(fs->L, f->upvalues, f->nups, f->sizeupvalues,
                     TString *, MAX_INT, "");
-    while (oldsize < f->sizeupvalues) f->upvalues[oldsize++] = NULL;
+    while (oldsize < f->sizeupvalues) f->upvalues[oldsize++] = nullptr;
     f->upvalues[f->nups] = name;
     luaC_objbarrier(fs->L, f, name);
     lua_assert(v->k == VLOCAL || v->k == VUPVAL);
@@ -212,7 +212,7 @@ static void markupval(FuncState *fs, int level) {
 
 
 static int singlevaraux(FuncState *fs, TString *n, expdesc *var, int base) {
-    if (fs == NULL) {  /* no more levels? */
+    if (fs == nullptr) {  /* no more levels? */
         init_exp(var, VGLOBAL, NO_REG);  /* default is global variable */
         return VGLOBAL;
     } else {
@@ -301,7 +301,7 @@ static void pushclosure(LexState *ls, FuncState *func, expdesc *v) {
     int i;
     luaM_growvector(ls->L, f->p, fs->np, f->sizep, Proto *,
                     MAXARG_Bx, "constant table overflow");
-    while (oldsize < f->sizep) f->p[oldsize++] = NULL;
+    while (oldsize < f->sizep) f->p[oldsize++] = nullptr;
     f->p[fs->np++] = func->f;
     luaC_objbarrier(ls->L, f, func->f);
     init_exp(v, VRELOCABLE, luaK_codeABx(fs, OP_CLOSURE, 0, fs->np - 1));
@@ -328,7 +328,7 @@ static void open_func(LexState *ls, FuncState *fs) {
     fs->np = 0;
     fs->nlocvars = 0;
     fs->nactvar = 0;
-    fs->bl = NULL;
+    fs->bl = nullptr;
     f->source = ls->source;
     f->maxstacksize = 2;  /* registers 0/1 are always valid */
     fs->h = luaH_new(L, 0, 0);
@@ -1248,7 +1248,7 @@ static void exprstat(LexState *ls) {
     if (v.v.k == VCALL)  /* stat -> func */
         SETARG_C(getcode(fs, &v.v), 1);  /* call statement uses no results */
     else {  /* stat -> assignment */
-        v.prev = NULL;
+        v.prev = nullptr;
         assignment(ls, &v, 1);
     }
 }

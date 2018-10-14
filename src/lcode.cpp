@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 
 #define lcode_c
 #define LUA_CORE

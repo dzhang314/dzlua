@@ -1,8 +1,8 @@
-#include <ctype.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cctype>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define lstrlib_c
 #define LUA_LIB
@@ -298,7 +298,7 @@ static const char *matchbalance(MatchState *ms, const char *s,
                                 const char *p) {
     if (*p == 0 || *(p + 1) == 0)
         luaL_error(ms->L, "unbalanced pattern");
-    if (*s != *p) return NULL;
+    if (*s != *p) return nullptr;
     else {
         int b = *p;
         int e = *(p + 1);
@@ -309,7 +309,7 @@ static const char *matchbalance(MatchState *ms, const char *s,
             } else if (*s == b) cont++;
         }
     }
-    return NULL;  /* string ends out of balance */
+    return nullptr;  /* string ends out of balance */
 }
 
 
@@ -324,7 +324,7 @@ static const char *max_expand(MatchState *ms, const char *s,
         if (res) return res;
         i--;  /* else didn't match; reduce 1 repetition to try again */
     }
-    return NULL;
+    return nullptr;
 }
 
 
@@ -332,11 +332,11 @@ static const char *min_expand(MatchState *ms, const char *s,
                               const char *p, const char *ep) {
     for (;;) {
         const char *res = match(ms, s, ep + 1);
-        if (res != NULL)
+        if (res != nullptr)
             return res;
         else if (s < ms->src_end && singlematch(uchar(*s), p, ep))
             s++;  /* try with one more repetition */
-        else return NULL;
+        else return nullptr;
     }
 }
 
@@ -349,7 +349,7 @@ static const char *start_capture(MatchState *ms, const char *s,
     ms->capture[level].init = s;
     ms->capture[level].len = what;
     ms->level = level + 1;
-    if ((res = match(ms, s, p)) == NULL)  /* match failed? */
+    if ((res = match(ms, s, p)) == nullptr)  /* match failed? */
         ms->level--;  /* undo capture */
     return res;
 }
@@ -360,7 +360,7 @@ static const char *end_capture(MatchState *ms, const char *s,
     int l = capture_to_close(ms);
     const char *res;
     ms->capture[l].len = s - ms->capture[l].init;  /* close capture */
-    if ((res = match(ms, s, p)) == NULL)  /* match failed? */
+    if ((res = match(ms, s, p)) == nullptr)  /* match failed? */
         ms->capture[l].len = CAP_UNFINISHED;  /* undo capture */
     return res;
 }
@@ -373,7 +373,7 @@ static const char *match_capture(MatchState *ms, const char *s, int l) {
     if ((size_t) (ms->src_end - s) >= len &&
         memcmp(ms->capture[l].init, s, len) == 0)
         return s + len;
-    else return NULL;
+    else return nullptr;
 }
 
 
@@ -393,7 +393,7 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
             switch (*(p + 1)) {
                 case 'b': {  /* balanced string? */
                     s = matchbalance(ms, s, p + 2);
-                    if (s == NULL) return NULL;
+                    if (s == nullptr) return nullptr;
                     p += 4;
                     goto init;  /* else return match(ms, s, p+4); */
                 }
@@ -408,14 +408,14 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
                     previous = (s == ms->src_init) ? '\0' : *(s - 1);
                     if (matchbracketclass(uchar(previous), p, ep - 1) ||
                         !matchbracketclass(uchar(*s), p, ep - 1))
-                        return NULL;
+                        return nullptr;
                     p = ep;
                     goto init;  /* else return match(ms, s, ep); */
                 }
                 default: {
                     if (isdigit(uchar(*(p + 1)))) {  /* capture results (%0-%9)? */
                         s = match_capture(ms, s, uchar(*(p + 1)));
-                        if (s == NULL) return NULL;
+                        if (s == nullptr) return nullptr;
                         p += 2;
                         goto init;  /* else return match(ms, s, p+2) */
                     }
@@ -428,7 +428,7 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
         }
         case '$': {
             if (*(p + 1) == '\0')  /* is the `$' the last char in pattern? */
-                return (s == ms->src_end) ? s : NULL;  /* check end of string */
+                return (s == ms->src_end) ? s : nullptr;  /* check end of string */
             else goto dflt;
         }
         default:
@@ -439,7 +439,7 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
             switch (*ep) {
                 case '?': {  /* optional */
                     const char *res;
-                    if (m && ((res = match(ms, s + 1, ep + 1)) != NULL))
+                    if (m && ((res = match(ms, s + 1, ep + 1)) != nullptr))
                         return res;
                     p = ep + 1;
                     goto init;  /* else return match(ms, s, ep+1); */
@@ -448,13 +448,13 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
                     return max_expand(ms, s, p, ep);
                 }
                 case '+': {  /* 1 or more repetitions */
-                    return (m ? max_expand(ms, s + 1, p, ep) : NULL);
+                    return (m ? max_expand(ms, s + 1, p, ep) : nullptr);
                 }
                 case '-': {  /* 0 or more repetitions (minimum) */
                     return min_expand(ms, s, p, ep);
                 }
                 default: {
-                    if (!m) return NULL;
+                    if (!m) return nullptr;
                     s++;
                     p = ep;
                     goto init;  /* else return match(ms, s+1, ep); */
@@ -468,12 +468,12 @@ static const char *match(MatchState *ms, const char *s, const char *p) {
 static const char *lmemfind(const char *s1, size_t l1,
                             const char *s2, size_t l2) {
     if (l2 == 0) return s1;  /* empty strings are everywhere */
-    else if (l2 > l1) return NULL;  /* avoids a negative `l1' */
+    else if (l2 > l1) return nullptr;  /* avoids a negative `l1' */
     else {
         const char *init;  /* to search for a `*s2' inside `s1' */
         l2--;  /* 1st char will be checked by `memchr' */
         l1 = l1 - l2;  /* `s2' cannot be found after that */
-        while (l1 > 0 && (init = (const char *) memchr(s1, *s2, l1)) != NULL) {
+        while (l1 > 0 && (init = (const char *) memchr(s1, *s2, l1)) != nullptr) {
             init++;   /* 1st char is already checked */
             if (memcmp(init, s2 + 1, l2) == 0)
                 return init - 1;
@@ -482,7 +482,7 @@ static const char *lmemfind(const char *s1, size_t l1,
                 s1 = init;
             }
         }
-        return NULL;  /* not found */
+        return nullptr;  /* not found */
     }
 }
 
@@ -523,7 +523,7 @@ static int str_find_aux(lua_State *L, int find) {
     if (init < 0) init = 0;
     else if ((size_t) (init) > l1) init = (ptrdiff_t) l1;
     if (find && (lua_toboolean(L, 4) ||  /* explicit request? */
-                 strpbrk(p, SPECIALS) == NULL)) {  /* or no special characters? */
+                 strpbrk(p, SPECIALS) == nullptr)) {  /* or no special characters? */
         /* do a plain search */
         const char *s2 = lmemfind(s + init, l1 - init, p, l2);
         if (s2) {
@@ -541,11 +541,11 @@ static int str_find_aux(lua_State *L, int find) {
         do {
             const char *res;
             ms.level = 0;
-            if ((res = match(&ms, s1, p)) != NULL) {
+            if ((res = match(&ms, s1, p)) != nullptr) {
                 if (find) {
                     lua_pushinteger(L, s1 - s + 1);  /* start */
                     lua_pushinteger(L, res - s);   /* end */
-                    return push_captures(&ms, NULL, 0) + 2;
+                    return push_captures(&ms, nullptr, nullptr) + 2;
                 } else
                     return push_captures(&ms, s1, res);
             }
@@ -580,7 +580,7 @@ static int gmatch_aux(lua_State *L) {
          src++) {
         const char *e;
         ms.level = 0;
-        if ((e = match(&ms, src, p)) != NULL) {
+        if ((e = match(&ms, src, p)) != nullptr) {
             lua_Integer newstart = e - s;
             if (e == src) newstart++;  /* empty match? go at least one position */
             lua_pushinteger(L, newstart);
@@ -746,7 +746,7 @@ static void addquoted(lua_State *L, luaL_Buffer *b, int arg) {
 
 static const char *scanformat(lua_State *L, const char *strfrmt, char *form) {
     const char *p = strfrmt;
-    while (*p != '\0' && strchr(FLAGS, *p) != NULL) p++;  /* skip flags */
+    while (*p != '\0' && strchr(FLAGS, *p) != nullptr) p++;  /* skip flags */
     if ((size_t) (p - strfrmt) >= sizeof(FLAGS))
         luaL_error(L, "invalid format (repeated flags)");
     if (isdigit(uchar(*p))) p++;  /* skip width */
@@ -868,7 +868,7 @@ static const luaL_Reg strlib[] = {
         {"reverse", str_reverse},
         {"sub",     str_sub},
         {"upper",   str_upper},
-        {NULL, NULL}
+        {nullptr, nullptr}
 };
 
 

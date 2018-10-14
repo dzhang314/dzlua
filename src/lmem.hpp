@@ -2,7 +2,7 @@
 #define lmem_h
 
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "llimits.hpp"
 #include "lua.hpp"
