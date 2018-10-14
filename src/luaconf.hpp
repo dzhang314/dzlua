@@ -87,14 +87,6 @@
 
 
 /*
-@@ LUA_INTEGER is the integral type used by lua_pushinteger/lua_tointeger.
-** CHANGE that if ptrdiff_t is not adequate on your machine. (On most
-** machines, ptrdiff_t gives a good choice between int or long.)
-*/
-#define LUA_INTEGER    ptrdiff_t
-
-
-/*
 @@ LUA_API is a mark for all core API functions.
 @@ LUALIB_API is a mark for all standard library functions.
 ** CHANGE them if you need to define those functions in some special way.
@@ -328,27 +320,6 @@
 /* }================================================================== */
 
 
-
-
-/*
-** {==================================================================
-@@ LUA_NUMBER is the type of numbers in Lua.
-** CHANGE the following definitions only if you want to build Lua
-** with a number type different from double. You may also need to
-** change lua_number2int & lua_number2integer.
-** ===================================================================
-*/
-
-#define LUA_NUMBER_DOUBLE
-#define LUA_NUMBER    double
-
-/*
-@@ LUAI_UACNUMBER is the result of an 'usual argument conversion'
-@* over a number.
-*/
-#define LUAI_UACNUMBER    double
-
-
 /*
 @@ LUA_NUMBER_SCAN is the format for reading numbers.
 @@ LUA_NUMBER_FMT is the format for writing numbers.
@@ -399,16 +370,6 @@
 
 
 /*
-@@ LUAI_USER_ALIGNMENT_T is a type that requires maximum alignment.
-** CHANGE it if your system requires alignments larger than double. (For
-** instance, if your system supports long doubles and they must be
-** aligned in 16-byte boundaries, then you should add long double in the
-** union.) Probably you do not need to change this.
-*/
-#define LUAI_USER_ALIGNMENT_T    union { double u; void *s; long l; }
-
-
-/*
 @@ LUAI_THROW/LUAI_TRY define how Lua does exception handling.
 ** CHANGE them if you prefer to use longjmp/setjmp even with C++
 ** or if want/don't to use _longjmp/_setjmp instead of regular
@@ -416,20 +377,8 @@
 ** compiling as C++ code, with _longjmp/_setjmp when asked to use them,
 ** and with longjmp/setjmp otherwise.
 */
-#if defined(__cplusplus)
-/* C++ exceptions */
-#define LUAI_THROW(L,c)	throw(c)
 #define LUAI_TRY(L,c,a)	try { a } catch(...) \
     { if ((c)->status == 0) (c)->status = -1; }
-#define luai_jmpbuf	int  /* dummy variable */
-
-#else
-/* default handling with long jumps */
-#define LUAI_THROW(L, c)    longjmp((c)->b, 1)
-#define LUAI_TRY(L, c, a)    if (setjmp((c)->b) == 0) { a }
-#define luai_jmpbuf    jmp_buf
-
-#endif
 
 
 /*

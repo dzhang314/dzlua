@@ -36,7 +36,6 @@
 /* chain list of long jump buffers */
 struct lua_longjmp {
     struct lua_longjmp *previous;
-    luai_jmpbuf b;
     volatile int status;  /* error code */
 };
 
@@ -87,7 +86,7 @@ static void resetstack(lua_State *L, int status) {
 void luaD_throw(lua_State *L, int errcode) {
     if (L->errorJmp) {
         L->errorJmp->status = errcode;
-        LUAI_THROW(L, L->errorJmp);
+        throw L->errorJmp;
     } else {
         L->status = cast_byte(errcode);
         if (G(L)->panic) {

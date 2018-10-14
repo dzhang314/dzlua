@@ -179,7 +179,6 @@ static void trydecpoint(LexState *ls, SemInfo *seminfo) {
 }
 
 
-/* LUA_NUMBER */
 static void read_numeral(LexState *ls, SemInfo *seminfo) {
     lua_assert(isdigit(ls->current));
     do {

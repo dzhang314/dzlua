@@ -36,6 +36,7 @@ using lu_byte = unsigned char;
 
 
 /* type to ensure maximum alignment */
+union L_Umaxalign { double u; void *s; long l; };
 using L_Umaxalign = union L_Umaxalign;
 
 
